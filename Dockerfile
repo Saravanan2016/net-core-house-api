@@ -1,7 +1,14 @@
-FROM microsoft/aspnetcore
+FROM microsoft/aspnetcore-build
 
-WORKDIR /netcore/app/src/SampleWebApiAspNetCore
+WORKDIR /netcore/app/
 
-ADD . /netcore/app
+ADD . .
 
-ENTRYPOINT dotnet run
+RUN dotnet restore
+
+ENV ASPNETCORE_URLS=http://+:5000
+
+ENTRYPOINT  ["dotnet", "run", "--project", "src/SampleWebApiAspNetCore/SampleWebApiAspNetCore.csproj"]
+
+
+

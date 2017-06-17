@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: house-api
+spec:
+  replicas: 8
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: house-api
+        version: 1.0.0
+    spec:
+      containers:
+      - name: house-api
+        image: bundyfx/house-api:1.0.1
+        ports:
+        - containerPort: 5000

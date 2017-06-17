@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: house-api
+  labels:
+    zone: dev
+    version: 1.0.0
+spec:
+  replicas: 8
+  selector:
+    app: house-api
+  template:
+    metadata:
+      labels:
+        app: house-api
+    spec:
+        containers:
+        - name: house-api
+          image: bundyfx/house-api:1.0.0
+          ports:
+          - containerPort: 5000

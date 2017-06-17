@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: house-api-svc
+spec:
+  type: NodePort
+  selector:
+    app: house-api
+  ports:
+    - protocol: TCP
+      port: 5000
+      nodePort: 30001

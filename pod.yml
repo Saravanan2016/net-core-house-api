@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: house-api
+  labels:
+    zone: dev
+    version: 1.0.0
+spec:
+    containers:
+    - name: house-api
+      image: bundyfx/house-api:1.0.0
+      ports:
+      - containerPort: 5000
