@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         app: house-api
-        version: 1.0.0
+        version: v1
     spec:
       containers:
       - name: house-api

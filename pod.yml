@@ -3,8 +3,8 @@ kind: Pod
 metadata:
   name: house-api
   labels:
-    zone: dev
-    version: 1.0.0
+    app: house-api
+    version: v3
 spec:
     containers:
     - name: house-api
