@@ -1,0 +1,70 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "Demo ECS Service and Task Stack"
+Parameters:
+  DockerImage:
+    Type: 'String'
+    Description: The name of the Image to use as part of the task definition
+  AppContainerPort:
+    Type: 'String'
+    Description: The Port mapping for the Container
+  AppHostPort:
+    Type: 'String'
+    Description: The Port mapping for the Host
+  AccountID:
+    Type: 'String'
+    Description: The AWS Account ID
+Resources:
+  ECSTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Join ['', [!Ref 'AWS::StackName', -ecs-demo]]
+      ContainerDefinitions:
+      - Name: api
+        Essential: true
+        Memory: "500"
+        PortMappings:
+          -
+            ContainerPort:
+              Ref: "AppContainerPort"
+            HostPort:
+              Ref: "AppHostPort"
+        Image: !Ref DockerImage
+        LogConfiguration:
+          LogDriver: awslogs
+          Options:
+            awslogs-group: 'ecslogs'
+            awslogs-region: 'eu-west-1'
+            awslogs-stream-prefix: 'ecs-demo'
+  ECSService:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: 'development-cluster'
+      DesiredCount: '2'
+      LoadBalancers:
+      - ContainerName: api
+        ContainerPort: '5000'
+        TargetGroupArn: !Sub 'arn:aws:elasticloadbalancing:eu-west-1:${AccountID}:targetgroup/development-demo/3afdc5352d1789aa'
+      Role: !Sub 'arn:aws:iam::${AccountID}:role/ecsServiceRole'
+      TaskDefinition: !Ref 'ECSTaskDefinition'
+  ServiceScalingTarget:
+    Type: AWS::ApplicationAutoScaling::ScalableTarget
+    DependsOn: ECSService
+    Properties:
+      MaxCapacity: 6
+      MinCapacity: 2
+      ResourceId: !Join ['', [service/development-cluster, /, !GetAtt [ECSService, Name]]]
+      RoleARN: !Sub 'arn:aws:iam::${AccountID}:role/ecsAutoscaleRole'
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+  ServiceScalingPolicy:
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: AStepPolicy
+      PolicyType: StepScaling
+      ScalingTargetId: !Ref 'ServiceScalingTarget'
+      TargetTrackingScalingPolicyConfiguration:
+        TargetValue: 10.0
+        ScaleInCooldown: 60
+        ScaleOutCooldown: 60
+        PredefinedMetricSpecification:
+          PredefinedMetricType: ASGAverageCPUUtilization
