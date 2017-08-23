@@ -59,8 +59,8 @@ Resources:
   ServiceScalingPolicy:
     Type: AWS::ApplicationAutoScaling::ScalingPolicy
     Properties:
-      PolicyName: AStepPolicy
-      PolicyType: StepScaling
+      PolicyName: TargetTracking
+      PolicyType: TargetTrackingScaling
       ScalingTargetId: !Ref 'ServiceScalingTarget'
       TargetTrackingScalingPolicyConfiguration:
         TargetValue: 10.0
