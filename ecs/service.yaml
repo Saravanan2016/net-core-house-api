@@ -39,8 +39,12 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       Cluster: 'development-cluster'
+      PlacementStrategies:
+        Type: spread
+        Field: host
       DeploymentConfiguration:
         MinimumHealthyPercent: 50
+        MaximumHealthyPercent: 100
       DesiredCount: '2'
       LoadBalancers:
       - ContainerName: api
