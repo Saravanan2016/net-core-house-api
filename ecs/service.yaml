@@ -40,7 +40,7 @@ Resources:
     Properties:
       Cluster: 'development-cluster'
       PlacementStrategies:
-        Type: spread
+      - Type: spread
         Field: host
       DeploymentConfiguration:
         MinimumHealthyPercent: 50
