@@ -39,6 +39,8 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       Cluster: 'development-cluster'
+      DeploymentConfiguration:
+        MinimumHealthyPercent: 50
       DesiredCount: '2'
       LoadBalancers:
       - ContainerName: api
@@ -51,7 +53,7 @@ Resources:
     DependsOn: ECSService
     Properties:
       MaxCapacity: 6
-      MinCapacity: 2
+      MinCapacity: 1
       ResourceId: !Join ['', [service/development-cluster, /, !GetAtt [ECSService, Name]]]
       RoleARN: !Sub 'arn:aws:iam::${AccountID}:role/ecsAutoscaleRole'
       ScalableDimension: ecs:service:DesiredCount
