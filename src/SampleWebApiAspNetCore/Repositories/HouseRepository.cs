@@ -13,7 +13,7 @@ namespace SampleWebApiAspNetCore.Repositories
             _houses.Add(1, new HouseEntity() { City = "Town1", Id = 1, Street = "Street1", ZipCode = 1234 });
             _houses.Add(2, new HouseEntity() { City = "Town2", Id = 2, Street = "Street2", ZipCode = 1234 });
             _houses.Add(3, new HouseEntity() { City = "Town3", Id = 3, Street = "Street3", ZipCode = 1234 });
-            _houses.Add(4, new HouseEntity() { City = "Town4", Id = 4, Street = "LEETSTREET", ZipCode = 1234 });
+            _houses.Add(4, new HouseEntity() { City = "Town4", Id = 4, Street = "FAKESTREET", ZipCode = 1234 });
         }
 
         public List<HouseEntity> GetAll()
