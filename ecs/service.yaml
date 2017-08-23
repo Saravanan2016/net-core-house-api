@@ -44,7 +44,7 @@ Resources:
         Field: host
       DeploymentConfiguration:
         MinimumHealthyPercent: 50
-        MaximumHealthyPercent: 100
+        MaximumPercent: 200
       DesiredCount: '2'
       LoadBalancers:
       - ContainerName: api
