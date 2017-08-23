@@ -67,4 +67,4 @@ Resources:
         ScaleInCooldown: 60
         ScaleOutCooldown: 60
         PredefinedMetricSpecification:
-          PredefinedMetricType: ASGAverageCPUUtilization
+          PredefinedMetricType: ECSServiceAverageCPUUtilization
