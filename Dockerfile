@@ -6,7 +6,7 @@ ADD . .
 
 RUN dotnet restore
 
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://+:80
 
 ENTRYPOINT  ["dotnet", "run", "--project", "src/SampleWebApiAspNetCore/SampleWebApiAspNetCore.csproj"]
 
