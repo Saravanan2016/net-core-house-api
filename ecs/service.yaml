@@ -49,7 +49,7 @@ Resources:
       LoadBalancers:
       - ContainerName: api
         ContainerPort: '80'
-        TargetGroupArn: !Sub 'arn:aws:elasticloadbalancing:eu-west-1:${AccountID}:targetgroup/development-demo/3afdc5352d1789aa'
+        TargetGroupArn: !Sub 'arn:aws:elasticloadbalancing:eu-west-1:${AccountID}:targetgroup/development-demo/8cf596fa51481c11'
       Role: !Sub 'arn:aws:iam::${AccountID}:role/ecsServiceRole'
       TaskDefinition: !Ref 'ECSTaskDefinition'
   ServiceScalingTarget:
